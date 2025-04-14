@@ -2,7 +2,6 @@ package main.java.com.chess.model.game;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import main.java.com.chess.model.board.Board;
 import main.java.com.chess.model.board.Position;
 import main.java.com.chess.model.piece.Piece;
@@ -66,22 +65,17 @@ public class Game {
         if (gameState != GameState.IN_PROGRESS && gameState != GameState.CHECK) {
             return false;
         }
-
         Piece piece = board.getPieceAt(from);
-
         if (piece == null || piece.isWhite() != isWhiteTurn) {
             return false;
         }
-
         if (!moveValidator.isValidMove(board, from, to, lastPawnDoubleMovePosition)) {
             return false;
         }
-
         Piece capturedPiece = board.getPieceAt(to);
         boolean isPromotion = false;
         boolean isCastling = false;
         boolean isEnPassant = false;
-
         if (moveValidator.isCastlingMove(board, from, to)) {
             isCastling = true;
             executeCastling(from, to);
@@ -118,7 +112,6 @@ public class Game {
                 executeMove(from, to, capturedPiece);
             }
         }
-
         updateGameState();
         isWhiteTurn = !isWhiteTurn;
         return true;
@@ -126,26 +119,21 @@ public class Game {
 
     private void executeMove(Position from, Position to, Piece capturedPiece) {
         Piece piece = board.getPieceAt(from);
-
         if (capturedPiece != null) {
             Player currentPlayer = getCurrentPlayer();
             currentPlayer.addCapturedPiece(capturedPiece);
         }
-
         if (!isSpecialMoveInProgress()) {
             Move move = new Move(from, to, piece, capturedPiece);
             moveHistory.add(move);
         }
-
         board.movePiece(from, to);
     }
 
     private void executeCastling(Position kingFrom, Position kingTo) {
         board.movePiece(kingFrom, kingTo);
-
         int rookFile;
         int rookDestFile;
-
         if (kingTo.getFile() > kingFrom.getFile()) {
             rookFile = 7;
             rookDestFile = kingTo.getFile() - 1;
@@ -153,19 +141,15 @@ public class Game {
             rookFile = 0;
             rookDestFile = kingTo.getFile() + 1;
         }
-
         Position rookFrom = new Position(rookFile, kingFrom.getRank());
         Position rookTo = new Position(rookDestFile, kingFrom.getRank());
-
         board.movePiece(rookFrom, rookTo);
     }
 
     private void executeEnPassant(Position from, Position to) {
         board.movePiece(from, to);
-
         Position capturedPawnPos = new Position(to.getFile(), from.getRank());
         Piece capturedPawn = board.getPieceAt(capturedPawnPos);
-
         if (capturedPawn != null) {
             Player currentPlayer = getCurrentPlayer();
             currentPlayer.addCapturedPiece(capturedPawn);
@@ -179,7 +163,6 @@ public class Game {
             Player currentPlayer = getCurrentPlayer();
             currentPlayer.addCapturedPiece(capturedPiece);
         }
-
         board.placePiece(null, from);
         board.placePiece(promotedPiece, to);
     }
@@ -188,7 +171,6 @@ public class Game {
         if (moveHistory.isEmpty()) {
             return false;
         }
-
         Move lastMove = moveHistory.get(moveHistory.size() - 1);
         return lastMove.isCastling() || lastMove.isEnPassant() || lastMove.isPromotion();
     }
@@ -196,7 +178,6 @@ public class Game {
     private void updateGameState() {
         boolean isInCheck = moveValidator.isInCheck(board, !isWhiteTurn);
         boolean hasValidMoves = moveValidator.hasValidMoves(board, !isWhiteTurn, lastPawnDoubleMovePosition);
-
         if (isInCheck && !hasValidMoves) {
             gameState = isWhiteTurn ? GameState.WHITE_WINS : GameState.BLACK_WINS;
         } else if (!isInCheck && !hasValidMoves) {
