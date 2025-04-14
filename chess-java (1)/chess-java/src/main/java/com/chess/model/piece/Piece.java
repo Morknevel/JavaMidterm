@@ -21,10 +21,10 @@ public abstract class Piece {
         return isWhite;
     }
 
-
     public Position getPosition() {
         return position;
     }
+
 
     public void setPosition(Position position) {
         this.position = position;
@@ -34,6 +34,7 @@ public abstract class Piece {
     public boolean hasMoved() {
         return hasMoved;
     }
+
 
     public void setMoved(boolean hasMoved) {
         this.hasMoved = hasMoved;

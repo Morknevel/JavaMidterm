@@ -3,6 +3,7 @@ package main.java.com.chess.model.game;
 import main.java.com.chess.model.board.Position;
 import main.java.com.chess.model.piece.Piece;
 
+
 public class Move {
     private final Position from;
     private final Position to;
@@ -11,11 +12,13 @@ public class Move {
     private final boolean isPromotion;
     private final boolean isCastling;
     private final boolean isEnPassant;
-    private Piece promotedToPiece;
+    private Piece promotedToPiece; // For pawn promotion
+
 
     public Move(Position from, Position to, Piece movingPiece, Piece capturedPiece) {
         this(from, to, movingPiece, capturedPiece, false, false, false);
     }
+
 
     public Move(Position from, Position to, Piece movingPiece, Piece capturedPiece,
                 boolean isPromotion, boolean isCastling, boolean isEnPassant) {
@@ -88,3 +91,4 @@ public class Move {
         return sb.toString();
     }
 }
+

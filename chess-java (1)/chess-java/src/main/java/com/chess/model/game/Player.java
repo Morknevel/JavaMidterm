@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import main.java.com.chess.model.piece.Piece;
 
+
 public class Player {
     private final boolean isWhite;
     private final List<Piece> capturedPieces;
@@ -13,13 +14,16 @@ public class Player {
         this.capturedPieces = new ArrayList<>();
     }
 
+
     public boolean isWhite() {
         return isWhite;
     }
 
+
     public List<Piece> getCapturedPieces() {
         return new ArrayList<>(capturedPieces);
     }
+
 
     public void addCapturedPiece(Piece piece) {
         if (piece != null) {
@@ -36,3 +40,4 @@ public class Player {
         return (isWhite ? "White" : "Black") + " Player";
     }
 }
+

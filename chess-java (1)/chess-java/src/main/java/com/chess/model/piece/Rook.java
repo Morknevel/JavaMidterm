@@ -7,16 +7,16 @@ import main.java.com.chess.model.board.Board;
 import main.java.com.chess.model.board.Position;
 
 
-public class Queen extends Piece {
+public class Rook extends Piece {
 
 
-    public Queen(boolean isWhite) {
+    public Rook(boolean isWhite) {
         super(isWhite);
     }
 
     @Override
     public PieceType getType() {
-        return PieceType.QUEEN;
+        return PieceType.ROOK;
     }
 
     @Override
@@ -28,15 +28,15 @@ public class Queen extends Piece {
             return validMoves;
         }
 
-
-        int[][] rookDirections = {
+        // Rook moves horizontally and vertically
+        int[][] directions = {
                 {0, 1},    // Up
                 {1, 0},    // Right
                 {0, -1},   // Down
                 {-1, 0}    // Left
         };
 
-        for (int[] dir : rookDirections) {
+        for (int[] dir : directions) {
             int fileDir = dir[0];
             int rankDir = dir[1];
 
@@ -46,51 +46,21 @@ public class Queen extends Piece {
                 currentPos = currentPos.offset(fileDir, rankDir);
 
                 if (currentPos == null) {
-                    break;
+                    break; // Off the board
                 }
 
                 Piece pieceAtDestination = board.getPieceAt(currentPos);
 
                 if (pieceAtDestination == null) {
+                    // Empty square, can move
                     validMoves.add(currentPos);
                 } else {
+                    // Square has a piece
                     if (pieceAtDestination.isWhite() != isWhite()) {
+                        // Can capture opponent's piece
                         validMoves.add(currentPos);
                     }
-                    break;
-                }
-            }
-        }
-
-        int[][] bishopDirections = {
-                {1, 1},    // Up-right
-                {1, -1},   // Down-right
-                {-1, -1},  // Down-left
-                {-1, 1}    // Up-left
-        };
-
-        for (int[] dir : bishopDirections) {
-            int fileDir = dir[0];
-            int rankDir = dir[1];
-
-            Position currentPos = position;
-
-            while (true) {
-                currentPos = currentPos.offset(fileDir, rankDir);
-
-                if (currentPos == null) {
-                    break;
-                }
-
-                Piece pieceAtDestination = board.getPieceAt(currentPos);
-
-                if (pieceAtDestination == null) {
-                    validMoves.add(currentPos);
-                } else {
-                    if (pieceAtDestination.isWhite() != isWhite()) {
-                        validMoves.add(currentPos);
-                    }
-                    break;
+                    break; // Can't move further in this direction
                 }
             }
         }
@@ -100,10 +70,9 @@ public class Queen extends Piece {
 
     @Override
     public Piece copy() {
-        Queen copy = new Queen(isWhite());
+        Rook copy = new Rook(isWhite());
         copy.setPosition(getPosition());
         copy.setMoved(hasMoved());
         return copy;
     }
 }
-

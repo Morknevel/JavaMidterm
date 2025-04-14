@@ -27,15 +27,16 @@ public class Knight extends Piece {
             return validMoves;
         }
 
+        // Knight moves in L-shape
         int[][] knightMoves = {
-                {2, 1},
-                {1, 2},
-                {-1, 2},
-                {-2, 1},
-                {-2, -1},
-                {-1, -2},
-                {1, -2},
-                {2, -1}
+                {2, 1},    // Right 2, up 1
+                {1, 2},    // Right 1, up 2
+                {-1, 2},   // Left 1, up 2
+                {-2, 1},   // Left 2, up 1
+                {-2, -1},  // Left 2, down 1
+                {-1, -2},  // Left 1, down 2
+                {1, -2},   // Right 1, down 2
+                {2, -1}    // Right 2, down 1
         };
 
         for (int[] move : knightMoves) {
@@ -44,6 +45,7 @@ public class Knight extends Piece {
             if (newPos != null) {
                 Piece pieceAtDestination = board.getPieceAt(newPos);
 
+                // Can move if the square is empty or has an opponent's piece
                 if (pieceAtDestination == null || pieceAtDestination.isWhite() != isWhite()) {
                     validMoves.add(newPos);
                 }

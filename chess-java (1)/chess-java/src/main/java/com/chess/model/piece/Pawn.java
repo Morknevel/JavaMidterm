@@ -28,12 +28,15 @@ public class Pawn extends Piece {
             return validMoves;
         }
 
+        // Direction is different for white and black pawns
         int direction = isWhite() ? 1 : -1;
 
+        // Forward movement
         Position oneForward = position.offset(0, direction);
         if (oneForward != null && board.getPieceAt(oneForward) == null) {
             validMoves.add(oneForward);
 
+            // Two square advance from starting position
             if (!hasMoved()) {
                 Position twoForward = position.offset(0, 2 * direction);
                 if (twoForward != null && board.getPieceAt(twoForward) == null) {
@@ -42,6 +45,7 @@ public class Pawn extends Piece {
             }
         }
 
+        // Diagonal captures
         Position captureLeft = position.offset(-1, direction);
         if (captureLeft != null) {
             Piece pieceLeft = board.getPieceAt(captureLeft);
@@ -58,6 +62,8 @@ public class Pawn extends Piece {
             }
         }
 
+        // Note: En passant is handled in the GameControllerImpl class
+        // since it requires knowledge of the previous move
 
         return validMoves;
     }
@@ -70,4 +76,3 @@ public class Pawn extends Piece {
         return copy;
     }
 }
-

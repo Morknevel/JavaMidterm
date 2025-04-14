@@ -18,14 +18,11 @@ public class Position {
         }
         char fileChar = algebraic.charAt(0);
         char rankChar = algebraic.charAt(1);
-
         if (fileChar < 'a' || fileChar > 'h' || rankChar < '1' || rankChar > '8') {
             throw new IllegalArgumentException("Invalid algebraic notation: " + algebraic);
         }
-
         int file = fileChar - 'a';
         int rank = rankChar - '1';
-
         return new Position(file, rank);
     }
 
@@ -46,11 +43,9 @@ public class Position {
     public Position offset(int fileDelta, int rankDelta) {
         int newFile = file + fileDelta;
         int newRank = rank + rankDelta;
-
         if (newFile < 0 || newFile > 7 || newRank < 0 || newRank > 7) {
             return null;
         }
-
         return new Position(newFile, newRank);
     }
 
