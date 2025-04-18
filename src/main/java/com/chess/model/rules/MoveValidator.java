@@ -23,29 +23,24 @@ public class MoveValidator {
             return false;
         }
 
-        // Check if there is a piece to move
         Piece piece = board.getPieceAt(from);
         if (piece == null) {
             return false;
         }
 
-        // Check if destination has a piece of the same color
         Piece destPiece = board.getPieceAt(to);
         if (destPiece != null && destPiece.isWhite() == piece.isWhite()) {
             return false;
         }
 
-        // Check for castling
         if (isCastlingMove(board, from, to)) {
             return isCastlingValid(board, from, to);
         }
 
-        // Check for en passant
         if (isEnPassantMove(board, from, to, lastPawnDoubleMovePosition)) {
             return isEnPassantValid(board, from, to, lastPawnDoubleMovePosition);
         }
 
-        // Check if the move is valid for this piece type
         List<Position> validMoves = piece.getValidMoves(board);
         if (!validMoves.contains(to)) {
             return false;

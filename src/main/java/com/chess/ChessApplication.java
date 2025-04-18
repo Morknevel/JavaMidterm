@@ -8,11 +8,6 @@ import main.java.com.chess.ui.ChessUI;
 
 public class ChessApplication {
 
-    /**
-     * Main method to start the application.
-     *
-     * @param args command line arguments (not used)
-     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             // Create the main frame

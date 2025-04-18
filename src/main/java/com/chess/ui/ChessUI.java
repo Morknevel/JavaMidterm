@@ -19,10 +19,6 @@ import main.java.com.chess.model.game.Game;
 import main.java.com.chess.model.game.Move;
 import main.java.com.chess.model.piece.Piece;
 
-/**
- * Sample implementation of a chess UI that integrates with the model.
- * This is not a complete implementation, but shows how to use the model.
- */
 public class ChessUI extends JPanel implements GameController.GameListener {
     private static final int SQUARE_SIZE = 60;
 

@@ -175,7 +175,7 @@ public class Game {
         return lastMove.isCastling() || lastMove.isEnPassant() || lastMove.isPromotion();
     }
 
-    private void updateGameState() {
+    public void updateGameState() {
         boolean isInCheck = moveValidator.isInCheck(board, !isWhiteTurn);
         boolean hasValidMoves = moveValidator.hasValidMoves(board, !isWhiteTurn, lastPawnDoubleMovePosition);
         if (isInCheck && !hasValidMoves) {

@@ -10,18 +10,11 @@ import main.java.com.chess.model.game.Move;
 import main.java.com.chess.model.piece.*;
 import main.java.com.chess.model.rules.MoveValidator;
 
-/**
- * Implementation of the GameController interface.
- * Fixed version that correctly handles pawn promotion.
- */
 public class GameControllerImpl implements GameController {
     private Game game;
     private MoveValidator moveValidator;
     private List<GameListener> listeners;
 
-    /**
-     * Creates a new GameController.
-     */
     public GameControllerImpl() {
         this.game = new Game();
         this.moveValidator = new MoveValidator();
